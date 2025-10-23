@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Online Gaming Portal</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+        <link rel="stylesheet" href="index.css" type="text/css">
+    </head>
+    <body class="font-mono">
+        <section class="outer-form">
+            <form action="RegisterServlet" class="w-1/3 h-1/2 border-4 border-green-700 rounded-xl" >
+                <div class="inner-form">
+                    <article>
+                        <label for="fname">First Name</label>:
+                        <input class="w-[60%]" type="text" name="fname" id="fname" placeholder="Enter Name" required/>:
+                    </article>
+<!--                    <article>-->
+<!--                        <label for="lname">Last Name</label>:-->
+<!--                        <input class="w-[60%]" type="text" name="lname" id="lname" placeholder="Enter Surname"/>:-->
+<!--                    </article>-->
+<!--                    <article>-->
+<!--                        <label for="username">Username</label>:-->
+<!--                        <input class="w-[60%]" type="text" name="username" placeholder="Enter Username" id="username" required/>:-->
+<!--                    </article>-->
+                    <article>
+                        <label for="password">Enter Password</label>:
+                        <input class="w-[60%] password" type="password" name="password" id="password" placeholder="Enter password" required/>:
+                    </article>
+<!--                    <article>-->
+<!--                        <label for="cpassword">Confirm Password</label>:-->
+<!--                        <input class="w-[60%] password" type="password" name="cpassword" id="cpassword" placeholder="Confirm password" required/>:-->
+<!--                    </article>-->
+                </div>
+                <button type="submit" class=" w-1/4 border-2 transition ease-out duration-300 ">Register
+                </button>
+            </form>
+        </section>
+    </body>
+</html>
