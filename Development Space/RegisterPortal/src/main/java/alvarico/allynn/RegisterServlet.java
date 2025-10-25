@@ -9,16 +9,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class RegisterServlet extends HttpServlet {
-    private String db_schema = "webdev";
+//    private String db_schema = "webdev";
+    private String db_schema = "tu914";
 
     private String jdbcConnection = "jdbc:mysql://localhost:3306/";
     private String db_userTable = "user";
 
 //    private String jdbcConnection = "jdbc:mysql://192.168.178.145:3306/";
+//    private String jdbcConnection = "jdbc:mysql://194.125.31.119:3306/";
 //    private String db_user = "webdevass1";
 //    private String db_password = "webdevelopmentassignment";
     private String db_user = "root";
-    String db_password = "@admin2110";
+    String db_password = "9542MEnw#";
     private final Connection connect;
 
     public RegisterServlet() throws SQLException {
@@ -29,7 +31,8 @@ public class RegisterServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        PrintWriter out = response.getWriter();
+        response.sendRedirect("errorLogin.html");
     }
 
     @Override
@@ -41,8 +44,9 @@ public class RegisterServlet extends HttpServlet {
         System.out.println("created name");
         String lastname = request.getParameter("lname");
         System.out.println("created last name");
-        String username = request.getParameter("username");
-        System.out.println("created username");
+        String gamerTag = request.getParameter("gamerTag");
+        System.out.println("gamerTag: " + gamerTag);
+        System.out.println("created gamerTag");
         String password = request.getParameter("password");
         System.out.println("created password");
         String confirmPassword = request.getParameter("cpassword");
@@ -56,26 +60,25 @@ public class RegisterServlet extends HttpServlet {
         out.println("<body>");
 
         if (password.equals(confirmPassword)){
-            out.println("<h1>"+ firstname +" susccessfully registered</h1");
+            out.println("<h1>Player "+ gamerTag +" successfully registered</h1");
             out.println("</body>");
-
             try {
-                databaseConnection(firstname, lastname, username, password);
+                databaseConnection(firstname, lastname, gamerTag, password);
             } catch (SQLException e) {
                 out.println(e);
                 displayError(e);
                 throw new RuntimeException(e);
             }
         } else {
-
+            response.sendRedirect(request.getContextPath() + "/RegisterServlet");
             out.println("Error! </body>");
         }
 
     }
 
-    public void databaseConnection(String firstname, String lastname, String username,String password) throws SQLException {
+    public void databaseConnection(String firstname, String lastname, String gamerTag, String password) throws SQLException {
         System.out.println("Creating User Object");
-        User newUser = new User(firstname, lastname, username, password);
+        User newUser = new User(firstname, lastname, gamerTag, password);
         System.out.println("Entering Data to Table");
         createUser(preparedStatement(this.connect), newUser);
         System.out.println("Data successfully stored");
@@ -83,12 +86,12 @@ public class RegisterServlet extends HttpServlet {
 
     public PreparedStatement preparedStatement(Connection connect) throws SQLException {
         System.out.println("Creating User");
-        return connect.prepareStatement("INSERT INTO " + db_userTable + " (fname, lname, username, password, balance)" + " VALUES(?, ?, ?, ?, ?)");
+        return connect.prepareStatement("INSERT INTO " + db_userTable + " (fname, lname, gamerTag, password, balance)" + " VALUES(?, ?, ?, ?, ?)");
     }
     public void createUser(PreparedStatement prep, User user) throws SQLException {
         prep.setString(1, user.getFirst_name());
         prep.setString(2, user.getLast_name());
-        prep.setString(3, user.getUsername());
+        prep.setString(3, user.getGamerTag());
         prep.setString(4, user.getPassword());
         prep.setString(5, String.valueOf(user.getBalance()));
         prep.executeUpdate();
@@ -104,22 +107,22 @@ public class RegisterServlet extends HttpServlet {
         ResultSet rs = connect.createStatement().executeQuery("SELECT * FROM " + db_userTable);
         String fname;
         String lname;
-        String username;
+        String gamerTag;
         String password;
-        String balance;
+        int balance;
         System.out.println("Retrieving Records");
         while (rs.next()) {
             fname = rs.getString(1);
             lname = rs.getString(2);
-            username = rs.getString(3);
+            gamerTag = rs.getString(3);
             password = rs.getString(4);
             if (rs.getString(5) != null) {
-                balance = String.valueOf(0);
+                balance = Integer.parseInt(rs.getString(5));
             } else {
-                balance = rs.getString(5);
+                balance = 0;
             }
 
-            String formatted = String.format("Full Name: %s %s | Username: %s | Password: %s | balance: %s", fname, lname, username, password, balance);
+            String formatted = String.format("Full Name: %s %s | GamerTag: %s | Password: %s | balance: %s", fname, lname, gamerTag, password, balance);
             System.out.println(formatted);
         }
     }
