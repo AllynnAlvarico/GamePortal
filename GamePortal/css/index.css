@@ -1,0 +1,83 @@
+/*--prussian-blue: #012A4Fff;*/
+/*--blue-munsell: #0784A2ff;*/
+/*--midnight-green: #03637Bff;*/
+/*--oxford-blue: #04192Fff;*/
+/*--oxford-blue-2: #03213Cff;*/
+body {
+    color: #0784A2ff;
+    font-family: monospace, serif;
+    background-image:
+            url("../resources/Nature Landscapes Free Pixel Art/nature_6/3.png"),
+            url("../resources/Nature Landscapes Free Pixel Art/nature_6/1.png"),
+            url("../resources/Nature Landscapes Free Pixel Art/nature_6/2.png");
+    background-repeat: no-repeat, no-repeat, no-repeat;
+    background-size: cover, cover, contain;
+    background-position: center, bottom left, bottom right;
+    background-attachment: fixed, fixed, fixed;
+}
+
+.outer-form {
+    width: 50%;
+    height: 100%;
+    margin: 10% auto;
+    padding: 20px;
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    gap: 10px;
+    border-color: #03213Cff;
+}
+
+.inner-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    place-items: center;
+    gap: 10px;
+    margin: 60px auto 10px auto;
+}
+
+article {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+label {
+    width: 160px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+}
+
+input {
+    background-color: white;
+    border-radius: 0.5rem;
+    padding: 6px 12px;
+}
+
+button {
+    border: #03213Cff 2px solid;
+    background-color: #0784A2ff;
+    color: white;
+    width: 25%;
+    margin-bottom: 26px;
+    padding: 12px 6px;
+    border-radius: 1rem;
+    overflow: hidden;
+    font-weight: bold;
+}
+
+button:hover {
+    color: #03213Cff;
+    background-color: white;
+    font-weight: bolder;
+    letter-spacing: 5px;
+}

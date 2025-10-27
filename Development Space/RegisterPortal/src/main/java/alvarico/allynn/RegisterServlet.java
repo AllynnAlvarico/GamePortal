@@ -31,8 +31,8 @@ public class RegisterServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        PrintWriter out = response.getWriter();
         response.sendRedirect("errorLogin.html");
+        System.out.println("Error Registration Processs");
     }
 
     @Override
@@ -100,7 +100,7 @@ public class RegisterServlet extends HttpServlet {
     }
 
     public void displayError(Exception e){
-        System.out.printf("Line 33 error in class:%s", RegisterServlet.class.getName());
+        System.out.printf("Method displayError Line 102 error in class:%s", RegisterServlet.class.getName());
         System.out.printf("\nException Trace:%s", e);
     }
     public void displayTableData() throws SQLException {
