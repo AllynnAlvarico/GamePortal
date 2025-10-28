@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 
 public class LoginServlet extends HttpServlet {
-    private User user;
     private final DatabaseConnection dc = new DatabaseConnection();
     private final Connection connect;
 

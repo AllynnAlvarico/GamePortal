@@ -8,9 +8,9 @@ public class Main {
         RegisterServlet rs = new RegisterServlet();
         LoginServlet ls = new LoginServlet();
         try {
-//            rs.databaseConnection("Tony4", "Stark4", "Ironman4", "ArcReactor4");
+//            rs.databaseConnection("eric", "selvig", "science", "123456");
 //            rs.displayTableData();
-            System.out.println(ls.retrieveUser("husky", "food"));
+            System.out.println(ls.retrieveUser("husky", "food").getFullName());
         } catch (SQLException e) {
             rs.displayError(e);
             throw new RuntimeException(e);

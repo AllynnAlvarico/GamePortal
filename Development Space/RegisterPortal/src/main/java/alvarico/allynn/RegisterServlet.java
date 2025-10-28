@@ -75,15 +75,22 @@ public class RegisterServlet extends HttpServlet {
 
     public PreparedStatement preparedStatement(Connection connect) throws SQLException {
         System.out.println("Creating User");
-        return connect.prepareStatement("INSERT INTO " + dc.getTable() + " (fname, lname, gamerTag, password, balance)" + " VALUES(?, ?, ?, ?, ?)");
+        return connect.prepareStatement("INSERT INTO " + dc.getTable() + "(fname, lname, gamerTag, password, balance)" + " VALUES(?, ?, ?, ?, ?)");
     }
     public void createUser(PreparedStatement prep, User user) throws SQLException {
+        System.out.println("setting name");
         prep.setString(1, user.getFirst_name());
+        System.out.println("setting surname");
         prep.setString(2, user.getLast_name());
+        System.out.println("setting gamer tag");
         prep.setString(3, user.getGamerTag());
+        System.out.println("setting password");
         prep.setString(4, user.getPassword());
+        System.out.println("setting balance");
         prep.setString(5, String.valueOf(user.getBalance()));
+        System.out.println("executing update");
         prep.executeUpdate();
+        System.out.println("Prepared Statement Closing");
         prep.close();
         System.out.println("Closing Connection");
     }
