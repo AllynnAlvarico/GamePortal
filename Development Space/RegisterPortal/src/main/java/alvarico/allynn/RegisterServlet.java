@@ -89,7 +89,7 @@ public class RegisterServlet extends HttpServlet {
     }
 
     public void displayError(Exception e){
-        System.out.printf("Method displayError Line 102 error in class:%s", RegisterServlet.class.getName());
+        System.out.printf("Method displayError Line 92 error in class:%s", RegisterServlet.class.getName());
         System.out.printf("\nException Trace:%s", e);
     }
     public void displayTableData() throws SQLException {
