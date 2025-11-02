@@ -3,8 +3,9 @@ package alvarico.allynn;
 public class DatabaseConnection {
 
     private String db_schema = "webdev";
-//    private String jdbcConnection = "jdbc:mysql://192.168.178.145:3306/";
-//    private String jdbcConnection = "jdbc:mysql://194.125.31.119:3306/";
+//    private String jdbcConnection = "jdbc:mysql://192.168.178.145:3306/"; local network connection to my database server
+//    private String jdbcConnection = "jdbc:mysql://194.125.24.208:3306/"; outside connection to my database server
+
 //    Main Database user and password
 //    private String db_user = "webdevass1";
 //    private String db_password = "webdevelopmentassignment";

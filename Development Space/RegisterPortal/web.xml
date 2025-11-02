@@ -13,6 +13,10 @@
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>alvarico.allynn.LoginServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PlayerServlet</servlet-name>
+        <servlet-class>alvarico.allynn.PlayerServlet</servlet-class>
+    </servlet>
 
     <servlet-mapping>
     <servlet-name>RegisterServlet</servlet-name>
@@ -22,6 +26,10 @@
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PlayerServlet</servlet-name>
+        <url-pattern>/PlayerServlet</url-pattern>
     </servlet-mapping>
 
 </web-app>

@@ -1,41 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Login</title>
-        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-        <link rel="stylesheet" href="css/index.css" type="text/css">
-        <link rel="stylesheet" href="css/animation.css" type="text/css">
-    </head>
-    <body>
-        <div class="bg-red-500 py-2 px-4 rounded-md text-white text-center fixed bottom-4 right-4 flex gap-4">
-            <p>Game Tag not recognised or Password is incorrect</p>
-            <span class="cursor-pointer font-bold" onclick="return this.parentNode.remove()"><sup>X</sup></span>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="css/index.css" type="text/css">
+    <link rel="stylesheet" href="css/animation.css" type="text/css">
+</head>
+<body>
+<section class="outer-form">
+    <div class="bg-red-500 py-2 px-4 rounded-md text-white text-center fixed bottom-4 right-4 flex gap-4">
+        <p>Game Tag not recognised or Password is incorrect</p>
+        <span class="cursor-pointer font-bold" onclick="return this.parentNode.remove()"><sup>X</sup></span>
+    </div>
+    <form action="LoginServlet"
+          class="register-form h-1/2 rounded-xl backdrop-blur-md backdrop-brightness-60 backdrop-contrast-120 backdrop-opacity-65 backdrop-saturate-125"
+          method="post">
+        <div class="inner-form">
+            <article>
+                <label for="gamerTag">Game Tag</label>:
+                <input class="w-[40%]" type="text" name="gamerTag" id="gamerTag" placeholder="Enter game tag" required/>:
+            </article>
+            <article>
+                <label for="password">Password</label>:
+                <input class="w-[40%]" type="password" name="password" id="password" placeholder="Enter password"/>:
+            </article>
         </div>
-        <section class="outer-form">
-            <form action="LoginServlet"
-                  class="register-form h-1/2 rounded-xl backdrop-blur-md backdrop-brightness-60 backdrop-contrast-120 backdrop-opacity-65 backdrop-saturate-125"
-                  method="post">
-                <div class="inner-form">
-                    <article>
-                        <label for="gamerTag">Game Tag</label>:
-                        <input class="w-[40%]" type="text" name="gamerTag" id="gamerTag" placeholder="Enter game tag" required/>:
-                    </article>
-                    <article>
-                        <label for="password">Password</label>:
-                        <input class="w-[40%]" type="password" name="password" id="password" placeholder="Enter password"/>:
-                    </article>
-                </div>
-                <div class="w-full flex justify-center gap-4">
-                    <button type="submit" class="wave-text border-2 transition ease-out duration-300">
-                        <span>L</span><span>o</span><span>g</span><span>i</span><span>n</span>
-                    </button>
-                    <button onclick="location.href='index.html'"  class="wave-text border-2 transition ease-out duration-300">
-                        <span>R</span><span>e</span><span>g</span><span>i</span><span>s</span><span>t</span><span>e</span><span>r</span>
-                    </button>
-                </div>
-            </form>
-        </section>
-    </body>
+        <div class="w-full flex justify-center gap-4">
+            <button type="submit" class="wave-text border-2 transition ease-out duration-300">
+                <span>L</span><span>o</span><span>g</span><span>i</span><span>n</span>
+            </button>
+            <button onclick="location.href='index.html'"  class="wave-text border-2 transition ease-out duration-300">
+                <span>R</span><span>e</span><span>g</span><span>i</span><span>s</span><span>t</span><span>e</span><span>r</span>
+            </button>
+        </div>
+    </form>
+</section>
+</body>
 </html>

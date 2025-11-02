@@ -69,7 +69,7 @@ public class User {
         return password;
     }
 
-    public float getBalance() {
+    public int getBalance() {
         return balance;
     }
 }
