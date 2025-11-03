@@ -76,7 +76,7 @@ a, button {
     font-weight: bold;
 }
 
-button:hover {
+a:hover, button:hover {
     color: #03213Cff;
     background-color: white;
     font-weight: bolder;

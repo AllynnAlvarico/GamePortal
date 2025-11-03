@@ -3,6 +3,7 @@ package alvarico.allynn;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Objects;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -36,6 +37,13 @@ public class PlayerServlet extends HttpServlet{
         int credit = Integer.parseInt(request.getParameter("credit"));
         int newBalance;
 
+        if (request.getParameter("credit") == null || request.getParameter("credit").isEmpty()){
+            credit = 0;
+            outputMessage = bannerError(true, "Cannot be empty");
+//            response.sendRedirect("");
+            hg.creatingHTML(response, userHolder, outputMessage);
+        }
+
         userHolder = retrieveUser(gamerTag, password);
         if (request.getParameter("add") != null) {
             System.out.println("Hello I am Add Button");
@@ -51,16 +59,14 @@ public class PlayerServlet extends HttpServlet{
             System.out.println("Amount to be Added is " + credit);
             if (credit > balance){
                 System.out.println("Cannot spend more money as balance is 0");
-                outputMessage = bannerError(true);
+                outputMessage = bannerError(true, "Cannot Spend Money");
             } else {
                 newBalance = balance - credit;
                 System.out.println("New Balance is " + newBalance);
                 userHolder.setBalance(newBalance);
                 playerUpdateBalance(gamerTag, newBalance);
-                outputMessage = bannerError(false);
             }
         }
-
 
         response.sendRedirect(request.getContextPath() + "/PlayerServlet");
     }
@@ -93,16 +99,16 @@ public class PlayerServlet extends HttpServlet{
         }
     }
 
-    public String bannerError(boolean error){
+    public String bannerError(boolean error, String message){
         if (!error) {
             return "";
         } else {
             return """
                 <div class="bg-red-500 py-2 px-4 rounded-md text-white text-center fixed bottom-4 right-4 flex gap-4">
-                    <p>Cannot Spend Money</p>
+                    <p>%s</p>
                     <span class="cursor-pointer font-bold" onclick="return this.parentNode.remove()"><sup>X</sup></span>
                 </div>
-                """;
+                """.formatted(message);
         }
     }
 
@@ -117,6 +123,5 @@ public class PlayerServlet extends HttpServlet{
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
     }
 }

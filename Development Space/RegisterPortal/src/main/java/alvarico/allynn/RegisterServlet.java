@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 public class RegisterServlet extends HttpServlet {
     private final DatabaseConnection dc = new DatabaseConnection();
     private final Connection connect;
+    private PrintWriter pw;
 
     public RegisterServlet() throws SQLException {
         System.out.println("Connecting");
@@ -26,6 +27,8 @@ public class RegisterServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        pw = response.getWriter();
+
         System.out.println("doPost Method");
         response.setContentType("text/html");
         System.out.println("created text/html");
@@ -41,36 +44,37 @@ public class RegisterServlet extends HttpServlet {
         String confirmPassword = request.getParameter("cpassword");
         System.out.println("created cpassword");
 
-
         System.out.println("Entering PrintWriter");
-        PrintWriter out = response.getWriter();
+
         System.out.println("create html content");
-        out.println("<html>");
-        out.println("<body>");
+        pw.println("<html>");
+        pw.println("<body>");
 
         if (password.equals(confirmPassword)){
-            out.println("<h1>Player "+ gamerTag +" successfully registered</h1");
-            out.println("</body>");
-            try {
-                databaseConnection(firstname, lastname, gamerTag, password);
-            } catch (SQLException e) {
-                out.println(e);
-                displayError(e);
-                throw new RuntimeException(e);
-            }
+            pw.println("<h1>Player "+ gamerTag +" successfully registered</h1");
+            databaseConnection(firstname, lastname, gamerTag, password);
+            pw.println("</body>");
+            redirectPage(response);
         } else {
             response.sendRedirect(request.getContextPath() + "/RegisterServlet");
-            out.println("Error! </body>");
+            pw.println("Error! </body>");
         }
 
     }
 
-    public void databaseConnection(String firstname, String lastname, String gamerTag, String password) throws SQLException {
-        System.out.println("Creating User Object");
-        User newUser = new User(firstname, lastname, gamerTag, password);
-        System.out.println("Entering Data to Table");
-        createUser(preparedStatement(this.connect), newUser);
-        System.out.println("Data successfully stored");
+    public void databaseConnection(String firstname, String lastname, String gamerTag, String password)   {
+        try {
+            System.out.println("Creating User Object");
+            User newUser = new User(firstname, lastname, gamerTag, password);
+            System.out.println("Entering Data to Table");
+            createUser(preparedStatement(this.connect), newUser);
+            System.out.println("Data successfully stored");
+        } catch (SQLException e) {
+            pw.println(e);
+            displayError(e);
+            throw new RuntimeException(e);
+        }
+
     }
 
     public PreparedStatement preparedStatement(Connection connect) throws SQLException {
@@ -122,4 +126,14 @@ public class RegisterServlet extends HttpServlet {
             System.out.println(formatted);
         }
     }
+
+    public void redirectPage(HttpServletResponse response){
+        try {
+            Thread.sleep(2000);
+            response.sendRedirect("login.html");
+        } catch (InterruptedException | IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
