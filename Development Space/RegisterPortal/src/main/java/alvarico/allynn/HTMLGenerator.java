@@ -40,7 +40,7 @@ public class HTMLGenerator {
                             <form action="PlayerServlet" method='POST'
                                     class="w-full flex flex-col items-center justify-center gap-4 col-span-2 row-span-2 col-start-4 row-start-4 bg-gray-100 rounded-lg">
                                 <label class="bg-gray-100 border-2 rounded overflow-hidden" for="credit">
-                                    <input type="text" class="px-2 w-full" name="credit" id="credit" placeholder="Enter amount">
+                                    <input type="number" class="px-2 w-full" name="credit" id="credit" placeholder="Enter amount">
                                 </label>
                                 <div class="flex justify-between gap-4">
                                     <button type="submit" name="add" id="add" value="add" class="bg-blue-400 w-34 rounded-lg cursor-pointer">Add Credits</button>

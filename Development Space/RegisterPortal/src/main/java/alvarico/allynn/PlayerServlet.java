@@ -1,6 +1,7 @@
 package alvarico.allynn;
 
 import java.io.IOException;
+import java.net.http.HttpRequest;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -34,17 +35,33 @@ public class PlayerServlet extends HttpServlet{
         String gamerTag = request.getParameter("gamerTag");
         String password = request.getParameter("password");
         int balance = Integer.parseInt(request.getParameter("balance"));
-        int credit = Integer.parseInt(request.getParameter("credit"));
+//        int credit = request.getParameter("credit").isEmpty() ? 0 : Integer.parseInt(request.getParameter("credit"));
+        userHolder = retrieveUser(gamerTag, password);
+//        int credit = inputChecker(request, response);
+        int credit;
         int newBalance;
 
-        if (request.getParameter("credit") == null || request.getParameter("credit").isEmpty()){
-            credit = 0;
-            outputMessage = bannerError(true, "Cannot be empty");
-//            response.sendRedirect("");
+        if (request.getParameter("credit").isEmpty()){
+            System.out.println("input is empty");
+            outputMessage = bannerError(true, "Input cannot be empty");
             hg.creatingHTML(response, userHolder, outputMessage);
+            credit = 0;
+        } else if (request.getParameter("credit").contains("-") || request.getParameter("credit").contains("+")) {
+            System.out.println("input has signs");
+            System.out.println("credit has a sign on it");
+            System.out.println("converting it into a absolute number");
+            outputMessage = bannerError(true, "Input cannot have a sign");
+            hg.creatingHTML(response, userHolder, outputMessage);
+            credit = 0;
+        } else if (Integer.parseInt(request.getParameter("credit")) == 0) {
+            System.out.println("input is zero");
+            outputMessage = bannerError(true, "Input cannot be a zero");
+            hg.creatingHTML(response, userHolder, outputMessage);
+            credit = 0;
+        } else {
+            credit = Integer.parseInt(request.getParameter("credit"));
         }
 
-        userHolder = retrieveUser(gamerTag, password);
         if (request.getParameter("add") != null) {
             System.out.println("Hello I am Add Button");
             System.out.println("Balance is " + balance);
@@ -57,6 +74,10 @@ public class PlayerServlet extends HttpServlet{
             System.out.println("Hey There I am Spend Button");
             System.out.println("Balance is " + balance);
             System.out.println("Amount to be Added is " + credit);
+            // the issue lies here!!!
+            // I think it goes through when having a + and - on the number if spending it
+            // example on the input is +1 then click on spend this triggers the else because since credit or input is less than
+            // the balance hence will proceed with the process
             if (credit > balance){
                 System.out.println("Cannot spend more money as balance is 0");
                 outputMessage = bannerError(true, "Cannot Spend Money");
@@ -67,7 +88,6 @@ public class PlayerServlet extends HttpServlet{
                 playerUpdateBalance(gamerTag, newBalance);
             }
         }
-
         response.sendRedirect(request.getContextPath() + "/PlayerServlet");
     }
 
@@ -101,7 +121,7 @@ public class PlayerServlet extends HttpServlet{
 
     public String bannerError(boolean error, String message){
         if (!error) {
-            return "";
+            return " ";
         } else {
             return """
                 <div class="bg-red-500 py-2 px-4 rounded-md text-white text-center fixed bottom-4 right-4 flex gap-4">
@@ -124,4 +144,19 @@ public class PlayerServlet extends HttpServlet{
             throw new RuntimeException(e);
         }
     }
+
+//    public int inputChecker(HttpServletRequest request, HttpServletResponse response) throws IOException {
+//        String reqInput = request.getParameter("credit");
+//        if (reqInput.isEmpty()) {
+//            return 0;
+//        } else if (reqInput.contains("-") || reqInput.contains("+")) {
+//            System.out.println("credit has a sign on it");
+//            System.out.println("converting it into a absolute number");
+//            outputMessage = bannerError(true, "Cannot have a sign");
+//            hg.creatingHTML(response, userHolder, outputMessage);
+//            return Math.abs(Integer.parseInt(reqInput));
+////            return 0;
+//        }
+//        return Integer.parseInt(reqInput);
+//    }
 }

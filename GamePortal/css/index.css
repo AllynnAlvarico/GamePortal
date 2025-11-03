@@ -63,7 +63,7 @@ input {
     padding: 6px 12px;
 }
 
-a, button {
+button {
     border: #03213Cff 2px solid;
     background-color: #0784A2ff;
     color: white;
@@ -76,7 +76,7 @@ a, button {
     font-weight: bold;
 }
 
-a:hover, button:hover {
+button:hover {
     color: #03213Cff;
     background-color: white;
     font-weight: bolder;

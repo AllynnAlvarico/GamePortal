@@ -54,12 +54,20 @@ public class RegisterServlet extends HttpServlet {
             pw.println("<h1>Player "+ gamerTag +" successfully registered</h1");
             databaseConnection(firstname, lastname, gamerTag, password);
             pw.println("</body>");
-            redirectPage(response);
+            pw.println("<script>");
+            pw.println("setTimeout(function() { window.location.href = 'login.html'; }, 2000);");
+            pw.println("</script>");
         } else {
             response.sendRedirect(request.getContextPath() + "/RegisterServlet");
-            pw.println("Error! </body>");
+            pw.println("<h1>Error!</h1> </body>");
         }
-
+        pw.println("</body></html>");
+//        try {
+//            Thread.sleep(2000);
+//            response.sendRedirect("login.html");
+//        } catch (InterruptedException | IOException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 
     public void databaseConnection(String firstname, String lastname, String gamerTag, String password)   {
@@ -126,14 +134,13 @@ public class RegisterServlet extends HttpServlet {
             System.out.println(formatted);
         }
     }
-
-    public void redirectPage(HttpServletResponse response){
-        try {
-            Thread.sleep(2000);
-            response.sendRedirect("login.html");
-        } catch (InterruptedException | IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+//    public void redirectPage(HttpServletResponse response){
+//        try {
+//            Thread.sleep(2000);
+//            response.sendRedirect("login.html");
+//        } catch (InterruptedException | IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
 }
